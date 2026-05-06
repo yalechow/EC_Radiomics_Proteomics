@@ -1,0 +1,4 @@
+﻿step,n_features,details
+start,2291,candidate features entering reduction
+pcc,340,corr_threshold=0.8
+rfe,20,top_k=20

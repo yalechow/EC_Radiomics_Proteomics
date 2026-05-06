@@ -1,0 +1,40 @@
+# Git ignore file for EC-Radiomics-Proteomics-LNM
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+env/
+.venv/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Data - raw/sensitive (never commit)
+data/raw/
+*.nii
+*.nii.gz
+*.dcm
+*_patient*.csv
+
+
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Large outputs
+*.pkl
+*.joblib
+*.h5
