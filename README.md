@@ -10,6 +10,11 @@ The study developed a 20-feature radiomics signature from multi-sequence MRI (CE
 - AUC: 0.840
 - Sensitivity: 0.797 | Specificity: 0.736
 
+**External validation (independent Center 4 cohort, n=130):**
+- AUC: 0.812 (95% CI: 0.690–0.910)
+- Sensitivity: 0.750 | Specificity: 0.797 | Accuracy: 0.792
+- Youden threshold: 0.231
+
 ---
 
 ## Repository Structure
@@ -18,7 +23,7 @@ The study developed a 20-feature radiomics signature from multi-sequence MRI (CE
 EC_Radiomics_Proteomics_GitHub/
 ├── README.md
 ├── data/
-│   ├── radiomics_features_20.csv         # 20 selected radiomics features + RadScore (32 matched samples)
+│   ├── radiomics_radscore_32samples.csv   # Radiomics-derived RadScore + predictions (32 matched samples)
 │   ├── proteomics_32samples.csv          # Top-10 hub protein intensities from FFPE proteomics (32 samples)
 │   ├── hub_proteins_correlation.csv      # Pearson correlation: RadScore vs hub proteins (|r| ≥ 0.4)
 │   ├── proteomics/
@@ -36,10 +41,14 @@ EC_Radiomics_Proteomics_GitHub/
 │       └── GSE120490_degs_down.csv       # 164 downregulated DEGs
 ├── results/
 │   ├── internal_validation/
-│   │   ├── model_performance.csv         # Apparent + cross-validation metrics
+│   │   ├── model_performance.csv         # Apparent + cross-validation aggregate metrics
 │   │   ├── model_benchmark_summary.csv   # All selector × classifier combinations (165 total, 1 selected)
 │   │   ├── repeated_cv_split_metrics.csv # Per-fold CV metrics
 │   │   └── repeated_cv_calibration_curve.csv
+│   ├── external_validation/
+│   │   ├── model_performance.csv         # External validation metrics for the final radiomics model
+│   │   ├── external_predictions.csv      # De-identified external predictions
+│   │   └── external_validation_auc_confusion_youden_summary.csv
 │   └── feature_selection/
 │       ├── selected_features.txt         # Final 20 features
 │       ├── model_coefficients.csv        # 20 features + coefficients + scaler params (model input order)
@@ -48,6 +57,7 @@ EC_Radiomics_Proteomics_GitHub/
 │       └── rfe_selector_ranking.csv      # RFE feature ranking
 └── figures/
     ├── GSE120490_volcano.pdf
+    ├── external_validation/              # ROC, confusion matrix, and study-flowchart figures
     ├── mri_examples/                     # Representative CE / DWI / T2 slices
     ├── proteomics_QC/                    # PCA, correlation, RSD, identified proteins
     ├── proteomics_DEP/                   # Volcano + heatmap (LNM+ vs LNM−)
@@ -59,12 +69,13 @@ EC_Radiomics_Proteomics_GitHub/
 
 ## Data Description
 
-### Radiomics Features (`data/radiomics_features_20.csv`)
+### Radiomics-Derived RadScore (`data/radiomics_radscore_32samples.csv`)
 
 - **Samples**: 32 cases with matched radiomics and proteomics data (anonymized as `Sample_001`–`Sample_032`)
-- **Columns**: `Sample_ID`, `LNM` (lymph node metastasis label: 1=positive, 0=negative), 20 radiomics features, `RadScore`, `Predicted_Probability`
+- **Columns**: `Sample_ID`, `LNM` (lymph node metastasis label: 1=positive, 0=negative), `RadScore`, `Predicted_Probability`
 - **Feature pipeline**: ICC ≥ 0.75 → PCC redundancy filter (threshold 0.8) → RFE (k=20) → Logistic Regression (L2)
 - **Sequences**: CE (contrast-enhanced), DWI (diffusion-weighted), T2
+- **Privacy note**: Patient-level 20-feature radiomics matrices are not included in this public repository.
 
 ### Proteomics (`data/proteomics_32samples.csv`)
 
@@ -116,10 +127,23 @@ Derived from FFPE quantitative proteomics (tandem mass spectrometry) on 32 endom
 
 | File | Description |
 |------|-------------|
-| `model_performance.csv` | Apparent and cross-validation metrics (AUC, sensitivity, specificity, calibration, etc.) |
-| `model_benchmark_summary.csv` | All selector × classifier combinations with CV metrics |
-| `repeated_cv_split_metrics.csv` | Per-fold metrics across all CV repeats |
-| `repeated_cv_calibration_curve.csv` | Calibration curve data (mean predicted vs. observed rate) |
+| `model_performance.csv` | Apparent and cross-validation aggregate metrics (AUC, sensitivity, specificity, calibration, etc.) |
+| `model_benchmark_summary.csv` | Aggregate selector × classifier benchmark summary |
+| `repeated_cv_split_metrics.csv` | Per-fold aggregate metrics across all CV repeats |
+| `repeated_cv_calibration_curve.csv` | Aggregate calibration curve data (mean predicted vs. observed rate) |
+
+Only aggregate internal-validation results are provided; patient-level development-cohort radiomics feature matrices are not included.
+
+
+### External Validation (`results/external_validation/`)
+
+| File | Description |
+|------|-------------|
+| `model_performance.csv` | External validation metrics for the final 20-feature radiomics model |
+| `external_predictions.csv` | De-identified sample-level external predictions only; radiomics feature values are not included |
+| `external_validation_auc_confusion_youden_summary.csv` | AUC, bootstrap CI, Youden threshold, and confusion-matrix summary |
+
+The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI: 0.6903–0.9103) in 130 independent cases. At the Youden threshold of 0.2313, sensitivity was 0.7500, specificity was 0.7966, and accuracy was 0.7923.
 
 ### Feature Selection Trace (`results/feature_selection/`)
 
@@ -139,6 +163,16 @@ Derived from FFPE quantitative proteomics (tandem mass spectrometry) on 32 endom
 | File | Description |
 |------|-------------|
 | `GSE120490_volcano.pdf` | DEG volcano plot (GSE120490, limma) |
+
+
+### External Validation (`figures/external_validation/`)
+| File | Description |
+|------|-------------|
+| `external_validation_roc.pdf/png` | ROC curve in the external-validation cohort |
+| `external_validation_roc_auc_youden.pdf/png` | ROC curve annotated with AUC and Youden threshold |
+| `external_validation_confusion_matrix.pdf/png` | Confusion matrix for the external-validation cohort |
+| `external_validation_confusion_matrix_youden.pdf/png` | Confusion matrix at the Youden threshold |
+| `study_flowchart.pdf/png` | Study design and analysis workflow |
 
 ### MRI Representative Images (`figures/mri_examples/`)
 Representative MRI slices (CE, DWI, T2) from a single case illustrating the segmented tumor region.
@@ -171,7 +205,8 @@ Protein–protein interaction network of DEPs (LNM+ vs LNM−):
 
 ## Data Availability
 
-- **Raw MRI images and clinical data**: Not publicly available due to patient privacy regulations.
+- **Raw MRI images, clinical records, and patient-level radiomics feature matrices**: Not publicly available due to patient privacy regulations.
+- **Validation outputs**: De-identified prediction probabilities and aggregate performance metrics are provided for external validation; aggregate metrics are provided for internal validation.
 - **GSE120490**: Available at [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120490)
 
 ---
