@@ -137,10 +137,11 @@ Only aggregate internal-validation results are provided; patient-level developme
 
 | File | Description |
 |------|-------------|
-| `model_performance.csv` | External validation metrics for the final 20-feature radiomics model |
-| `external_predictions.csv` | De-identified sample-level external prediction probabilities only; radiomics feature values and binary prediction labels are not included |
+| `model_performance.csv` | External validation metrics for the final 20-feature radiomics model; threshold-dependent metrics are reported at the optimal threshold |
+| `external_predictions.csv` | De-identified sample-level external prediction probabilities |
 
 The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI: 0.6903–0.9103) in 130 independent cases.
+Threshold-dependent external-validation metrics are summarized at the optimal threshold.
 
 ### Feature Selection Trace (`results/feature_selection/`)
 
@@ -166,7 +167,7 @@ The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI:
 | File | Description |
 |------|-------------|
 | `external_validation_roc.pdf/png` | ROC curve in the external-validation cohort |
-| `external_validation_confusion_matrix.pdf/png` | Confusion matrix for the external-validation cohort |
+| `external_validation_confusion_matrix.pdf/png` | Confusion matrix for the external-validation cohort at the optimal threshold |
 | `study_flowchart.pdf/png` | Study design and analysis workflow |
 
 ### MRI Representative Images (`figures/mri_examples/`)
@@ -201,7 +202,7 @@ Protein–protein interaction network of DEPs (LNM+ vs LNM−):
 ## Data Availability
 
 - **Raw MRI images, clinical records, and patient-level radiomics feature matrices**: Not publicly available due to patient privacy regulations.
-- **Validation outputs**: De-identified prediction probabilities and aggregate performance metrics are provided for external validation; aggregate metrics are provided for internal validation. External binary prediction labels are not included.
+- **Validation outputs**: De-identified prediction probabilities and aggregate performance metrics are provided for external validation; aggregate metrics are provided for internal validation.
 - **GSE120490**: Available at [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120490)
 
 ---
