@@ -13,7 +13,6 @@ The study developed a 20-feature radiomics signature from multi-sequence MRI (CE
 **External validation (independent Center 4 cohort, n=130):**
 - AUC: 0.812 (95% CI: 0.690–0.910)
 - Sensitivity: 0.750 | Specificity: 0.797 | Accuracy: 0.792
-- Youden threshold: 0.231
 
 ---
 
@@ -48,7 +47,6 @@ EC_Radiomics_Proteomics_GitHub/
 │   ├── external_validation/
 │   │   ├── model_performance.csv         # External validation metrics for the final radiomics model
 │   │   ├── external_predictions.csv      # De-identified external predictions
-│   │   └── external_validation_auc_confusion_youden_summary.csv
 │   └── feature_selection/
 │       ├── selected_features.txt         # Final 20 features
 │       ├── model_coefficients.csv        # 20 features + coefficients + scaler params (model input order)
@@ -141,9 +139,8 @@ Only aggregate internal-validation results are provided; patient-level developme
 |------|-------------|
 | `model_performance.csv` | External validation metrics for the final 20-feature radiomics model |
 | `external_predictions.csv` | De-identified sample-level external predictions only; radiomics feature values are not included |
-| `external_validation_auc_confusion_youden_summary.csv` | AUC, bootstrap CI, Youden threshold, and confusion-matrix summary |
 
-The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI: 0.6903–0.9103) in 130 independent cases. At the Youden threshold of 0.2313, sensitivity was 0.7500, specificity was 0.7966, and accuracy was 0.7923.
+The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI: 0.6903–0.9103) in 130 independent cases.
 
 ### Feature Selection Trace (`results/feature_selection/`)
 
@@ -169,9 +166,7 @@ The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI:
 | File | Description |
 |------|-------------|
 | `external_validation_roc.pdf/png` | ROC curve in the external-validation cohort |
-| `external_validation_roc_auc_youden.pdf/png` | ROC curve annotated with AUC and Youden threshold |
 | `external_validation_confusion_matrix.pdf/png` | Confusion matrix for the external-validation cohort |
-| `external_validation_confusion_matrix_youden.pdf/png` | Confusion matrix at the Youden threshold |
 | `study_flowchart.pdf/png` | Study design and analysis workflow |
 
 ### MRI Representative Images (`figures/mri_examples/`)

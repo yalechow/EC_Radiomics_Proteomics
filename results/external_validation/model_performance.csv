@@ -2,7 +2,6 @@
 external,auc,0.8121468926553672
 external,auc_ci_lower,0.6903329537786775
 external,auc_ci_upper,0.9103107344632768
-external,youden_threshold,0.2313134542014955
 external,accuracy,0.7923076923076923
 external,sensitivity,0.75
 external,specificity,0.7966101694915254
@@ -16,5 +15,3 @@ external,tp,9.0
 external,n_total,130.0
 external,n_positive,12.0
 external,n_negative,118.0
-external,youden_sensitivity,0.75
-external,youden_specificity,0.7966101694915254
