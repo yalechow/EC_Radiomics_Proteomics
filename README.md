@@ -138,7 +138,7 @@ Only aggregate internal-validation results are provided; patient-level developme
 | File | Description |
 |------|-------------|
 | `model_performance.csv` | External validation metrics for the final 20-feature radiomics model |
-| `external_predictions.csv` | De-identified sample-level external prediction probabilities only; radiomics feature values and threshold-based labels are not included |
+| `external_predictions.csv` | De-identified sample-level external prediction probabilities only; radiomics feature values and binary prediction labels are not included |
 
 The final radiomics model achieved an external-validation AUC of 0.8121 (95% CI: 0.6903–0.9103) in 130 independent cases.
 
@@ -201,7 +201,7 @@ Protein–protein interaction network of DEPs (LNM+ vs LNM−):
 ## Data Availability
 
 - **Raw MRI images, clinical records, and patient-level radiomics feature matrices**: Not publicly available due to patient privacy regulations.
-- **Validation outputs**: De-identified prediction probabilities and aggregate performance metrics are provided for external validation; aggregate metrics are provided for internal validation. Threshold-based external prediction labels are not included.
+- **Validation outputs**: De-identified prediction probabilities and aggregate performance metrics are provided for external validation; aggregate metrics are provided for internal validation. External binary prediction labels are not included.
 - **GSE120490**: Available at [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120490)
 
 ---

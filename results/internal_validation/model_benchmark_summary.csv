@@ -1,4 +1,4 @@
-Is_Selected_Model,Feature_Selection,Classifier,Imbalance_Strategy,Selected_Feature_Count,Training_Cases,Internal_AUC,Internal_PR_AUC,Internal_Brier_Score,Internal_Sensitivity_at_0.5,Internal_Specificity_at_0.5,Internal_Precision_at_0.5,Internal_F1_at_0.5,Internal_Balanced_Accuracy_at_0.5,Internal_Calibration_Slope
+﻿Is_Selected_Model,Feature_Selection,Classifier,Imbalance_Strategy,Selected_Feature_Count,Training_Cases,Internal_AUC,Internal_PR_AUC,Internal_Brier_Score,Internal_Sensitivity,Internal_Specificity,Internal_Precision,Internal_F1,Internal_Balanced_Accuracy,Internal_Calibration_Slope
 No,pcc+rfe,svm_linear,balanced,20,432,0.8451936141304348,0.4701955115716338,0.1005176584329265,0.09375,0.9864130434782608,0.5454545454545454,0.16,0.5400815217391304,1.2843907142373376
 No,pcc+rfe,logit_l2,smote,20,432,0.8424337635869565,0.4833920310969011,0.1507981608994985,0.765625,0.7690217391304348,0.3656716417910448,0.4949494949494949,0.7673233695652174,0.5840070568084517
 No,pcc+rfe,svm_linear,smote,20,432,0.8416270380434784,0.4778456664102279,0.1452571227867348,0.71875,0.779891304347826,0.3622047244094488,0.4816753926701571,0.7493206521739131,0.5462500654062183
